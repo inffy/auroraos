@@ -39,7 +39,6 @@ rpm-ostree install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 rpm-ostree install \
-    broadcom-wl /tmp/akmods/kmods/*wl*.rpm \
     v4l2loopback /tmp/akmods/kmods/*v4l2loopback*.rpm
 rpm-ostree uninstall rpmfusion-free-release rpmfusion-nonfree-release
 
@@ -58,7 +57,7 @@ if [[ "${IMAGE_NAME}" =~ nvidia ]]; then
     rm -f /usr/share/vulkan/icd.d/nouveau_icd.*.json
 fi
 
-# ZFS for gts/stable
+# ZFS for stable
 if [[ ${AKMODS_FLAVOR} =~ coreos ]]; then
     # Fetch ZFS RPMs
     skopeo copy --retry-times 3 docker://ghcr.io/ublue-os/akmods-zfs:"${AKMODS_FLAVOR}"-"$(rpm -E %fedora)"-"${KERNEL}" dir:/tmp/akmods-zfs
